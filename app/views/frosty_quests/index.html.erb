@@ -1,0 +1,29 @@
+
+<div class="p-6 bg-gray-900 text-white min-h-screen">
+  <div class="flex flex-col md:flex-row gap-4 mb-6">
+    <img src="https://via.placeholder.com/300x200" class="rounded-xl shadow-lg" />
+    <img src="https://via.placeholder.com/300x200" class="rounded-xl shadow-lg" />
+  </div>
+
+  <div class="flex items-center mb-4">
+    <input type="text" placeholder="New quest..." class="flex-1 p-2 rounded bg-gray-800 border border-gray-600 text-white">
+    <button class="ml-2 px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700">Add</button>
+  </div>
+
+  <div class="bg-gray-800 p-4 rounded-xl shadow-lg">
+    <h2 class="text-xl font-semibold mb-4">All Quests</h2>
+
+    <% @quests.each do |quest| %>
+      <div class="flex items-center justify-between bg-gray-700 p-3 rounded mb-2">
+        <div class="flex items-center gap-2">
+          <input type="checkbox" checked="<%= quest.completed %>" class="accent-violet-500 w-5 h-5" />
+          <span class="<%= quest.completed ? 'line-through text-gray-400' : '' %>"><%= quest.title %></span>
+        </div>
+        <div class="flex gap-2">
+          <button class="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded"><i class="fas fa-eye"></i></button>
+          <button class="bg-rose-500 hover:bg-rose-600 text-white p-2 rounded"><i class="fas fa-trash"></i></button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
