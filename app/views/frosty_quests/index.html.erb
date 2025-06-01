@@ -1,29 +1,40 @@
+<% content_for :title, "Frosty quests" %>
 
-<div class="p-6 bg-gray-900 text-white min-h-screen">
-  <div class="flex flex-col md:flex-row gap-4 mb-6">
-    <img src="https://via.placeholder.com/300x200" class="rounded-xl shadow-lg" />
-    <img src="https://via.placeholder.com/300x200" class="rounded-xl shadow-lg" />
-  </div>
+<!-- Banner Images -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+  <%= image_tag("Frost.jpg", alt: "Frosty banner 1", class: "rounded-xl w-full shadow-lg") %>
+  <%= image_tag("Frost2.jpg", alt: "Frosty banner 2", class: "rounded-xl w-full shadow-lg") %>
+</div>
 
-  <div class="flex items-center mb-4">
-    <input type="text" placeholder="New quest..." class="flex-1 p-2 rounded bg-gray-800 border border-gray-600 text-white">
-    <button class="ml-2 px-4 py-2 bg-violet-600 text-white rounded hover:bg-violet-700">Add</button>
-  </div>
+<!-- Header & Create Button -->
+<div class="flex justify-between items-center mb-6">
+  <h1 class="font-bold text-4xl text-white">All Quests</h1>
+  <%= link_to "+ View Brags", brags_path, class: "bg-teal-500 hover:bg-teal-600 text-white font-semibold px-4 py-2 rounded-md shadow" %>
+</div>
 
-  <div class="bg-gray-800 p-4 rounded-xl shadow-lg">
-    <h2 class="text-xl font-semibold mb-4">All Quests</h2>
+<!-- New Quest Input -->
+<div class="flex items-center gap-2 mb-6">
+  <input type="text" placeholder="New quest..." class="flex-1 px-4 py-2 rounded-md bg-gray-800 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-purple-500" />
+  <button class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-md font-semibold">Add</button>
+</div>
 
-    <% @quests.each do |quest| %>
-      <div class="flex items-center justify-between bg-gray-700 p-3 rounded mb-2">
-        <div class="flex items-center gap-2">
-          <input type="checkbox" checked="<%= quest.completed %>" class="accent-violet-500 w-5 h-5" />
-          <span class="<%= quest.completed ? 'line-through text-gray-400' : '' %>"><%= quest.title %></span>
+<!-- Quests List -->
+<div class="space-y-4">
+  <% if @frosty_quests.any? %>
+    <% @frosty_quests.each do |frosty_quest| %>
+      <div class="flex justify-between items-center bg-gray-800 p-4 rounded-md shadow">
+        <div class="flex items-center gap-3">
+          <%= check_box_tag "quest_#{frosty_quest.id}" %>
+          <span class="text-white font-medium"><%= frosty_quest.title %></span>
         </div>
         <div class="flex gap-2">
-          <button class="bg-emerald-500 hover:bg-emerald-600 text-white p-2 rounded"><i class="fas fa-eye"></i></button>
-          <button class="bg-rose-500 hover:bg-rose-600 text-white p-2 rounded"><i class="fas fa-trash"></i></button>
+          <%= link_to "👁️", frosty_quest, class: "bg-emerald-500 hover:bg-emerald-400 text-white px-3 py-1 rounded-md" %>
+          <%= button_to "🗑️", frosty_quest, method: :delete, data: { turbo_confirm: "Are you sure?" },
+                class: "bg-rose-500 hover:bg-rose-400 text-white px-3 py-1 rounded-md" %>
         </div>
       </div>
     <% end %>
-  </div>
+  <% else %>
+    <p class="text-center text-gray-400 mt-10">No frosty quests found.</p>
+  <% end %>
 </div>
